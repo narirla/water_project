@@ -70,7 +70,7 @@ class Water:
         df['일자'] = pd.to_datetime(df['일자'], errors='coerce')
         return df
     
-    def _fetch_water_api_data(self, rename_columns: bool = True) -> pd.DataFrame:
+    def _fetch_water_api_data(self, rename_columns: bool = True,year='2021,2022,2023,2024,2025') -> pd.DataFrame:
         """
         Internal method to fetch water quality data from API.
         
@@ -87,7 +87,7 @@ class Water:
             'numOfRows': self.DEFAULT_NUM_OF_ROWS,
             'resultType': self.DEFAULT_RESULT_TYPE,
             'ptNoList': self.DEFAULT_PT_NO_LIST,
-            'wmyrList': self.DEFAULT_WMYR_LIST,
+            'wmyrList': year,
             'wmodList': self.DEFAULT_WMOD_LIST
         }
         
@@ -131,14 +131,14 @@ class Water:
         
         return pd.DataFrame()
     
-    def api_data(self) -> pd.DataFrame:
+    def api_data(self,year='2021,2022,2023,2024,2025') -> pd.DataFrame:
         """
         Fetch water quality data from API with column renaming and data processing.
         
         Returns:
             pd.DataFrame: Processed DataFrame with renamed columns and converted data types.
         """
-        return self._fetch_water_api_data(rename_columns=True)
+        return self._fetch_water_api_data(rename_columns=True,year=year)
     
     def api_data_dept(self) -> pd.DataFrame:
         """
